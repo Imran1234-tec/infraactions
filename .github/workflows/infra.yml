@@ -15,6 +15,12 @@ jobs:
               with: 
                 terraform_version: 1.7
 
+            - name: aws configuration 
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
+                aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+
             - name: terraform initialization
               id: init
               run: terraform init
@@ -30,16 +36,11 @@ jobs:
             - name: terraform plan
               id: plan
               run: terraform plan
-              env: 
-                AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-                AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+              
 
 
             - name: terraform apply
               id: apply
               run: terraform apply
-              env: 
-                AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-                AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-              
+            
 
